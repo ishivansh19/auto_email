@@ -14,10 +14,10 @@ router.post('/auth/login', login);
 //Contact CRUD Routes
 router.get('/contacts',protect, getContacts);
 router.post('/contacts',protect, addContact);
-router.put('/contacts/:id', protect,updateContact);
-router.delete('/contacts/:id', protect,deleteContact);
+router.put('/contacts/:id',protect,updateContact);
+router.delete('/contacts/:id',protect,deleteContact);
 
 //Email Sending Route
-router.post('/send-email', protect,sendBulkEmail);
+router.post('/send-email',protect,sendBulkEmail);
 
 module.exports = router;
