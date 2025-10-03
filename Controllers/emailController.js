@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const Contact = require('../models/Contact');
-
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 exports.sendBulkEmail = async (req, res) => {
     const { contactIds, subject, messageTemplate } = req.body;
 
@@ -8,9 +8,9 @@ exports.sendBulkEmail = async (req, res) => {
         return res.status(400).json({ message: 'Missing required fields: contactIds, subject, messageTemplate.' });
     }
 
-    // --- Nodemailer Setup ---
+    //Nodemailer Setup
     const transporter = nodemailer.createTransport({
-        service: 'gmail', // Or any other email service
+        service: 'gmail',
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
@@ -26,7 +26,8 @@ exports.sendBulkEmail = async (req, res) => {
         };
 
         for (const contact of contacts) {
-            // --- Error Handling for Missing Info ---
+            //Error Handling for Missing Info
+            await delay(1000);
             if (!contact.email || !contact.name || !contact.company) {
                 report.failed.push({ 
                     name: contact.name || 'N/A', 
@@ -35,7 +36,7 @@ exports.sendBulkEmail = async (req, res) => {
                 continue; // Skips to the next contact
             }
 
-            // --- Auto-adjusting Components (Templating) ---
+            // Auto-adjusting Components (Templating)
             let personalizedMessage = messageTemplate
                 .replace(/\[Name\]/g, contact.name)
                 .replace(/\[Company Name\]/g, contact.company);

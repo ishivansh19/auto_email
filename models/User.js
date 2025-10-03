@@ -19,7 +19,11 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please provide a password'],
         minlength: 6,
         select: false // This will prevent the password from being sent back in queries by default
-    }
+    },
+    template: { 
+        type: String,
+        default: ''
+}
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);

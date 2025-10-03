@@ -4,12 +4,19 @@ const router = express.Router();
 // Import Controllers
 const { getContacts, addContact, updateContact, deleteContact } = require('../Controllers/contactController');
 const { sendBulkEmail } = require('../Controllers/emailController');
-const { register, login } = require('../Controllers/userController'); 
+const { register, login , getMe} = require('../Controllers/userController'); 
 const {protect}=require('../Middlewares/auth');
+const { getTemplate, saveTemplate } = require('../Controllers/templateController');
+
 
 //Authentication Routes
 router.post('/auth/register', register);
 router.post('/auth/login', login);
+router.post('/auth/me',protect, getMe);
+
+//templates
+router.get('/template', protect, getTemplate);
+router.put('/template', protect, saveTemplate);
 
 //Contact CRUD Routes
 router.get('/contacts',protect, getContacts);

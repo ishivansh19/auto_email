@@ -62,7 +62,14 @@ const sendTokenResponse = (user, statusCode, res) => {
     });
     
     res.status(statusCode).json({
-        success: true,
-        token
+        accesToken: token
     });
+};
+
+// @desc    Get current logged in user
+exports.getMe = async (req, res) => {
+    // req.user is attached by the 'protect' middleware
+    // We use .select('-password') just in case it was included elsewhere
+    const user = await User.findById(req.user.id).select('-password');
+    res.status(200).json(user);
 };
