@@ -15,6 +15,11 @@ const ContactSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a company name'],
         trim: true
+    },
+    user:{
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',//reference of user logged in
+        required: true
     }
 }, { timestamps: true });
 

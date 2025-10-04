@@ -4,6 +4,7 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 exports.sendBulkEmail = async (req, res) => {
     const { contactIds, subject, messageTemplate } = req.body;
 
+    // console.log(contactIds, subject, messageTemplate);
     if (!contactIds || contactIds.length === 0 || !subject || !messageTemplate) {
         return res.status(400).json({ message: 'Missing required fields: contactIds, subject, messageTemplate.' });
     }
@@ -20,6 +21,7 @@ exports.sendBulkEmail = async (req, res) => {
     try {
         const contacts = await Contact.find({ '_id': { $in: contactIds } });
         
+        // console.log(contacts);
         const report = {
             sent: [],
             failed: []

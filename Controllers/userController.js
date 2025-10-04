@@ -62,7 +62,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     });
     
     res.status(statusCode).json({
-        accesToken: token
+        accessToken: token
     });
 };
 
