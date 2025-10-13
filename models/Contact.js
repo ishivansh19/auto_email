@@ -20,7 +20,25 @@ const ContactSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User',//reference of user logged in
         required: true
-    }
+    },
+    lastEmailedAt:{
+        type: Date,
+        default: null
+    },
+    reminderAt:{
+        type: Date,
+        default: null
+    },
+    notes: [{
+        text: {
+            type: String,
+            trim: true
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
+    }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Contact', ContactSchema);

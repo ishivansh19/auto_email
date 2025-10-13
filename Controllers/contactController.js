@@ -13,12 +13,13 @@ exports.getContacts = async (req, res) => {
 // @desc    Add a new contact
 exports.addContact = async (req, res) => {
     try {
-        const { name, email, company } = req.body;
+        const { name, email, company,reminderAt} = req.body;
         console.log(req.user);
         const newContact = new Contact({
             name,
             email,
             company,
+            reminderAt,
             user: req.user.id
             });
         console.log(newContact);
